@@ -1,10 +1,9 @@
-package cols
+package cols_test
 
 import (
 	"fmt"
-	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/egon12/cols"
 )
 
 func ExampleMap() {
@@ -14,12 +13,12 @@ func ExampleMap() {
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
 
-	got := Map(in, func(o Obj) string {
+	got := cols.Map(in, func(o Obj) string {
 		return o.Name
 	})
 
 	fmt.Println(got)
-	// Output: [Egon Simon Kikorosuma]
+	// Output: [Peter Simon Kikorosuma]
 }
 
 func ExampleFilter() {
@@ -29,12 +28,42 @@ func ExampleFilter() {
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
 
-	got := Filter(in, func(o Obj) bool {
+	got := cols.Filter(in, func(o Obj) bool {
 		return o.BirthDate > 15
 	})
 
 	fmt.Println(got)
-	// Output: [{Egon 31} {Simon 29}]
+	// Output: [{Peter 31} {Simon 29}]
+}
+
+func ExampleFind() {
+	in := []Obj{
+		{Name: "Peter", BirthDate: 31},
+		{Name: "Simon", BirthDate: 29},
+		{Name: "Kikorosuma", BirthDate: 10},
+	}
+
+	got, _ := cols.Find(in, func(o Obj) bool {
+		return o.Name == "Simon"
+	})
+
+	fmt.Println(got)
+	// Output: {Simon 29}
+}
+
+func ExampleAny() {
+	in := []Obj{
+		{Name: "Peter", BirthDate: 31},
+		{Name: "Simon", BirthDate: 29},
+		{Name: "Kikorosuma", BirthDate: 10},
+	}
+
+	got := cols.Any(in, func(o Obj) bool {
+		return o.Name == "Simon"
+	})
+
+	fmt.Println(got)
+	// Output: true
 }
 
 func ExampleGroupBy() {
@@ -47,7 +76,7 @@ func ExampleGroupBy() {
 		{Name: "Person 6", GroupName: "Group 2"},
 	}
 
-	got := GroupBy(in, func(o GroupObj) string {
+	got := cols.GroupBy(in, func(o GroupObj) string {
 		return o.GroupName
 	})
 
@@ -55,39 +84,68 @@ func ExampleGroupBy() {
 	// Output: [{Person 1 Group 1} {Person 2 Group 1} {Person 3 Group 1} {Person 4 Group 1}]
 }
 
-func TestMap(t *testing.T) {
+func ExampleSum() {
 	in := []Obj{
-		{Name: "Egon", BirthDate: 31},
+		{Name: "Peter", BirthDate: 31},
 		{Name: "Simon", BirthDate: 29},
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
 
-	want := []string{"Egon", "Simon", "Kikorosuma"}
+	got := cols.Sum(in, func(o Obj) int32 {
+		return o.BirthDate
+	})
 
-	fun := func(arg Obj) string { return arg.Name }
-
-	got := Map(in, fun)
-
-	assert.Equal(t, want, got)
+	fmt.Println(got)
+	// Output: 70
 }
 
-func TestFilter(t *testing.T) {
+func ExampleMax() {
 	in := []Obj{
-		{Name: "Egon", BirthDate: 31},
+		{Name: "Peter", BirthDate: 31},
 		{Name: "Simon", BirthDate: 29},
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
 
-	want := []Obj{
-		{Name: "Egon", BirthDate: 31},
+	got := cols.Max(in, func(o Obj) int32 {
+		return o.BirthDate
+	})
+
+	fmt.Println(got)
+	// Output: 31
+}
+
+func ExampleMin() {
+	in := []Obj{
+		{Name: "Peter", BirthDate: 31},
 		{Name: "Simon", BirthDate: 29},
+		{Name: "Kikorosuma", BirthDate: 10},
 	}
 
-	fun := func(arg Obj) bool { return arg.BirthDate > 15 }
+	got := cols.Min(in, func(o Obj) int32 {
+		return o.BirthDate
+	})
 
-	got := Filter(in, fun)
+	fmt.Println(got)
+	// Output: 10
+}
 
-	assert.Equal(t, want, got)
+func ExampleSumNumber() {
+	in1 := []int{1, 2, 3, 4}
+	got := cols.SumNumber(in1)
+	fmt.Println(got)
+	// Output: 10
+}
+
+func ExampleMaxNumber() {
+	got := cols.MaxNumber([]int32{10, 20, 100, 1, 2, 5})
+	fmt.Println(got)
+	// Output: 100
+}
+
+func ExampleMinNumber() {
+	got := cols.MaxNumber([]int32{10, 20, 100, 1, 2, 5})
+	fmt.Println(got)
+	// Output: 100
 }
 
 type Obj struct {
