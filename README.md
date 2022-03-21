@@ -26,4 +26,4 @@ func ExampleMap() {
 }
 ```
 
-For complete documentation you can go to pkg.go.dev/github.com/egon12/cols
+For complete documentation you can go to [pkg.go.dev/github.com/egon12/cols](https://pkg.go.dev/github.com/egon12/cols)
