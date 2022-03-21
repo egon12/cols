@@ -9,7 +9,7 @@ import (
 
 func ExampleMap() {
 	in := []Obj{
-		{Name: "Egon", BirthDate: 31},
+		{Name: "Peter", BirthDate: 31},
 		{Name: "Simon", BirthDate: 29},
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
@@ -24,7 +24,7 @@ func ExampleMap() {
 
 func ExampleFilter() {
 	in := []Obj{
-		{Name: "Egon", BirthDate: 31},
+		{Name: "Peter", BirthDate: 31},
 		{Name: "Simon", BirthDate: 29},
 		{Name: "Kikorosuma", BirthDate: 10},
 	}
