@@ -2,9 +2,20 @@ package cols_test
 
 import (
 	"fmt"
+	"testing"
 
 	"github.com/egon12/cols"
 )
+
+type Obj struct {
+	Name      string
+	BirthDate int32
+}
+
+type GroupObj struct {
+	Name      string
+	GroupName string
+}
 
 func ExampleMap() {
 	in := []Obj{
@@ -84,12 +95,19 @@ func ExampleGroupBy() {
 	// Output: [{Person 1 Group 1} {Person 2 Group 1} {Person 3 Group 1} {Person 4 Group 1}]
 }
 
-type Obj struct {
-	Name      string
-	BirthDate int32
-}
+func TestFind(t *testing.T) {
+	t.Run("func Find if not that same should return false",
+		func(t *testing.T) {
+			got, ok := cols.Find([]int{1, 2, 3}, func(it int) bool {
+				return it == 4
+			})
 
-type GroupObj struct {
-	Name      string
-	GroupName string
+			if ok {
+				t.Error("should not ok, cause not found any")
+			}
+
+			if got != 0 {
+				t.Errorf("got should be default value (0) got %v", got)
+			}
+		})
 }

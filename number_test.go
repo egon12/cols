@@ -2,9 +2,16 @@ package cols_test
 
 import (
 	"fmt"
+	"testing"
 
 	"github.com/egon12/cols"
 )
+
+type SumAbleObj struct {
+	Name   string
+	Group  string
+	Amount float64
+}
 
 func ExampleSumBy() {
 	in := []SumAbleObj{
@@ -88,8 +95,30 @@ func ExampleMinNumber() {
 	// Output: 100
 }
 
-type SumAbleObj struct {
-	Name   string
-	Group  string
-	Amount float64
+func TestMaxNumber(t *testing.T) {
+	t.Run("func MaxNumber should return default when input length is zero",
+		func(t *testing.T) {
+			if cols.MaxNumber([]float64(nil)) != float64(0.0) {
+				t.Error("result MaxNumber not 0.0")
+			}
+		})
+
+	t.Run("func MaxNumber should able to receive input in type alias",
+		func(t *testing.T) {
+			type mynum float32
+			var in []mynum = append([]mynum{}, 1, 2, 3, 4)
+			if cols.MaxNumber(in) != mynum(4.0) {
+				t.Errorf("result MaxNumber not 4.0 but: %v", cols.MaxNumber(in))
+			}
+		})
+}
+
+func TestMinNumber(t *testing.T) {
+	t.Run("func MinNumber should return default when input length is zero",
+		func(t *testing.T) {
+			if cols.MinNumber([]float64(nil)) != float64(0.0) {
+				t.Error("result MaxNumber not 0.0")
+			}
+		})
+
 }

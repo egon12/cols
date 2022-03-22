@@ -2,7 +2,7 @@ package cols
 
 // Number are interface that can be fulfilled by all int and float in golang
 type Number interface {
-	int | int32 | int64 | float32 | float64
+	~int | ~int32 | ~int64 | ~float32 | ~float64
 }
 
 // SumBy will return map that have sum of each group.
