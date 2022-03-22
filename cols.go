@@ -60,6 +60,7 @@ func GroupBy[K comparable, V any](in []V, fun func(V) K) map[K][]V {
 	return res
 }
 
+// Unique will return slice of unique values
 func Unique[T comparable](in []T) []T {
 	unique := make(map[T]struct{}, len(in))
 
