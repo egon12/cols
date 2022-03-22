@@ -24,6 +24,14 @@ func Filter[T any](in []T, fun func(T) bool) []T {
 	return res
 }
 
+// Reduce
+func Reduce[T, R any](in []T, fun func(R, T) R, val R) R {
+	for _, v := range in {
+		val = fun(val, v)
+	}
+	return val
+}
+
 // Any will return true if in slice there are item that match with the function
 func Any[T any](in []T, fun func(T) bool) bool {
 	_, ok := Find(in, fun)

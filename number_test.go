@@ -90,9 +90,9 @@ func ExampleMaxNumber() {
 }
 
 func ExampleMinNumber() {
-	got := cols.MaxNumber([]int32{10, 20, 100, 1, 2, 5})
+	got := cols.MinNumber([]int32{10, 20, 100, 1, 2, 5})
 	fmt.Println(got)
-	// Output: 100
+	// Output: 1
 }
 
 func TestMaxNumber(t *testing.T) {

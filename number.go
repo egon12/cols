@@ -53,15 +53,8 @@ func MaxNumber[T Number](in []T) T {
 		return res
 	}
 
-	res = in[0]
-
-	for _, v := range in {
-		if v > res {
-			res = v
-		}
-	}
-
-	return res
+	f := moreThan[T]
+	return Reduce(in, f, in[0])
 }
 
 // MinNumber will return the higest number in input
@@ -71,13 +64,20 @@ func MinNumber[T Number](in []T) T {
 		return res
 	}
 
-	res = in[0]
+	f := lessThan[T]
+	return Reduce(in, f, in[0])
+}
 
-	for _, v := range in {
-		if v < res {
-			res = v
-		}
+func lessThan[T Number](a, b T) T {
+	if a < b {
+		return a
 	}
+	return b
+}
 
-	return res
+func moreThan[T Number](a, b T) T {
+	if a > b {
+		return a
+	}
+	return b
 }

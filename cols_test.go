@@ -47,6 +47,17 @@ func ExampleFilter() {
 	// Output: [{Peter 31} {Simon 29}]
 }
 
+func ExampleReduce() {
+	in := []int{1, 2, 3}
+
+	got := cols.Reduce(in, func(a float32, i int) float32 {
+		return a + float32(i)
+	}, 0.0)
+
+	fmt.Println(got)
+	// Output: 6
+}
+
 func ExampleFind() {
 	in := []Obj{
 		{Name: "Peter", BirthDate: 31},
