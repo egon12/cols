@@ -107,6 +107,24 @@ func ExampleGroupBy() {
 	// Output: [{Person 1 Group 1} {Person 2 Group 1} {Person 3 Group 1} {Person 4 Group 1}]
 }
 
+func ExampleCountBy() {
+	in := []GroupObj{
+		{Name: "Person 1", GroupName: "Group 1"},
+		{Name: "Person 2", GroupName: "Group 1"},
+		{Name: "Person 3", GroupName: "Group 1"},
+		{Name: "Person 4", GroupName: "Group 1"},
+		{Name: "Person 5", GroupName: "Group 2"},
+		{Name: "Person 6", GroupName: "Group 2"},
+	}
+
+	got := cols.CountBy(in, func(o GroupObj) string {
+		return o.GroupName
+	})
+
+	fmt.Println(got)
+	// Output: map[Group 1:4 Group 2:2]
+}
+
 func ExampleUnique() {
 	in := []string{
 		"one",

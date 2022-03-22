@@ -54,8 +54,17 @@ func GroupBy[K comparable, V any](in []V, fun func(V) K) map[K][]V {
 	res := make(map[K][]V, len(in))
 	for _, v := range in {
 		k := fun(v)
-		group := res[k]
-		res[k] = append(group, v)
+		res[k] = append(res[k], v)
+	}
+	return res
+}
+
+// CountBy will count slice []V based on key K map[K][]V. The key (K) will be received
+// from the function that pass into second arguments
+func CountBy[K comparable, V any](in []V, fun func(V) K) map[K]int {
+	res := make(map[K]int, len(in))
+	for _, v := range in {
+		res[fun(v)] += 1
 	}
 	return res
 }
