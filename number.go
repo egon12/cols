@@ -37,6 +37,46 @@ func Min[T any, N Number](in []T, fun func(T) N) N {
 	return MinNumber(Map(in, fun))
 }
 
+// MaxStruct will return item from slice that have highest number returned by function
+func MaxStruct[T any, N Number](in []T, fun func(T) N) T {
+	var res T
+	if len(in) == 0 {
+		return res
+	}
+
+	res = in[0]
+	max := fun(res)
+
+	for _, v := range in {
+		mv := fun(v)
+		if fun(v) > max {
+			res = v
+			max = mv
+		}
+	}
+	return res
+}
+
+// MinStruct will return item from slice that have lowest number returned by function
+func MinStruct[T any, N Number](in []T, fun func(T) N) T {
+	var res T
+	if len(in) == 0 {
+		return res
+	}
+
+	res = in[0]
+	min := fun(res)
+
+	for _, v := range in {
+		mv := fun(v)
+		if fun(v) < min {
+			res = v
+			min = mv
+		}
+	}
+	return res
+}
+
 // SumNumber will return sum of every number in input
 func SumNumber[T Number](in []T) T {
 	var res T

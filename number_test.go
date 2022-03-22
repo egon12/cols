@@ -76,6 +76,36 @@ func ExampleMin() {
 	// Output: 10
 }
 
+func ExampleMaxStruct() {
+	in := []Obj{
+		{Name: "Peter", BirthDate: 31},
+		{Name: "Simon", BirthDate: 29},
+		{Name: "Kikorosuma", BirthDate: 10},
+	}
+
+	got := cols.MaxStruct(in, func(o Obj) int32 {
+		return o.BirthDate
+	})
+
+	fmt.Println(got)
+	// Output: {Peter 31}
+}
+
+func ExampleMinStruct() {
+	in := []Obj{
+		{Name: "Peter", BirthDate: 31},
+		{Name: "Simon", BirthDate: 29},
+		{Name: "Kikorosuma", BirthDate: 10},
+	}
+
+	got := cols.MinStruct(in, func(o Obj) int32 {
+		return o.BirthDate
+	})
+
+	fmt.Println(got)
+	// Output: {Kikorosuma 10}
+}
+
 func ExampleSumNumber() {
 	in1 := []int{1, 2, 3, 4}
 	got := cols.SumNumber(in1)
