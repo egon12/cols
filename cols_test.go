@@ -2,6 +2,7 @@ package cols_test
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 
 	"github.com/egon12/cols"
@@ -104,6 +105,24 @@ func ExampleGroupBy() {
 
 	fmt.Println(got["Group 1"])
 	// Output: [{Person 1 Group 1} {Person 2 Group 1} {Person 3 Group 1} {Person 4 Group 1}]
+}
+
+func ExampleUnique() {
+	in := []string{
+		"one",
+		"two",
+		"three",
+		"two",
+		"two",
+		"one",
+		"three",
+	}
+
+	got := cols.Unique(in)
+
+	sort.Strings(got)
+	fmt.Println(got)
+	// Output: [one three two]
 }
 
 func TestFind(t *testing.T) {

@@ -59,3 +59,24 @@ func GroupBy[K comparable, V any](in []V, fun func(V) K) map[K][]V {
 	}
 	return res
 }
+
+func Unique[T comparable](in []T) []T {
+	unique := make(map[T]struct{}, len(in))
+
+	for _, v := range in {
+		_, ok := unique[v]
+		if !ok {
+			// mark unique
+			unique[v] = struct{}{}
+		}
+	}
+
+	res := make([]T, len(unique))
+	i := 0
+	for v, _ := range unique {
+		res[i] = v
+		i++
+	}
+
+	return res
+}
