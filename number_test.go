@@ -136,7 +136,7 @@ func TestMaxNumber(t *testing.T) {
 	t.Run("func MaxNumber should able to receive input in type alias",
 		func(t *testing.T) {
 			type mynum float32
-			var in []mynum = append([]mynum{}, 1, 2, 3, 4)
+			var in = append([]mynum{}, 1, 2, 3, 4)
 			if cols.MaxNumber(in) != mynum(4.0) {
 				t.Errorf("result MaxNumber not 4.0 but: %v", cols.MaxNumber(in))
 			}

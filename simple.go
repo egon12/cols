@@ -24,7 +24,7 @@ func Filter[T any](in []T, fun func(T) bool) []T {
 	return res
 }
 
-// Reduce
+// Reduce is function reduce just like javascript reduce
 func Reduce[T, R any](in []T, fun func(R, T) R, val R) R {
 	for _, v := range in {
 		val = fun(val, v)
@@ -64,7 +64,7 @@ func GroupBy[K comparable, V any](in []V, fun func(V) K) map[K][]V {
 func CountBy[K comparable, V any](in []V, fun func(V) K) map[K]int {
 	res := make(map[K]int, len(in))
 	for _, v := range in {
-		res[fun(v)] += 1
+		res[fun(v)]++
 	}
 	return res
 }
@@ -83,7 +83,7 @@ func Unique[T comparable](in []T) []T {
 
 	res := make([]T, len(unique))
 	i := 0
-	for v, _ := range unique {
+	for v := range unique {
 		res[i] = v
 		i++
 	}
